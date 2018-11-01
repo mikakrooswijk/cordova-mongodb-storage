@@ -14,12 +14,16 @@ To install this plugin, clone this repository and run this command:
 
 This is the funntionality the plugin provides right now:
 
-* `initiate(app-id: string)`
+---
+
+`initiate(app-id: string)`
 
 This function has to be called before doing anything else with the plugin <br>
 `app-id` the id of this app.  <br>
 
-* `findOne(database: string, collection: string, criteria: JSONObject)` 
+---
+
+ `findOne(database: string, collection: string, criteria: JSONObject)` 
 
 [API reference for findOne](https://docs.mongodb.com/manual/reference/method/db.collection.findOne/) <br>
 
@@ -27,7 +31,9 @@ This function has to be called before doing anything else with the plugin <br>
 `collection` the collection that is to be queried <br>
 `criteria` a JSON object that provides the criteria for the query. <br>
 
-* `replaceOne(database: string, collection: string, criteria: JSONObject, update: JSONObject)`  
+---
+
+`replaceOne(database: string, collection: string, criteria: JSONObject, update: JSONObject)`  
 
 [API reference for replaceOne](https://docs.mongodb.com/manual/reference/method/db.collection.replaceOne/) <br>
 
@@ -36,7 +42,8 @@ This function has to be called before doing anything else with the plugin <br>
 `criteria` a JSON object that provides the criteria for the replace. <br>
 `update` the object that is to be updates or inserted. <br>
 
-* `findAll(database: string, collection: string)`
+---
+`findAll(database: string, collection: string)`
 
 [API reference for find](https://docs.mongodb.com/manual/reference/method/db.collection.find/) <br>
 
@@ -44,7 +51,8 @@ Returns all the entries is a given database and collection.  <br>
 `database` the database that is to be queried. <br>
 `collection` the collection that is to be queried <br>
 
-* `deleteOne(database: string, criteria: string, criteria)`
+---
+`deleteOne(database: string, criteria: string, criteria)`
 
 [API reference for deleteOne](https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/) <br>
 
