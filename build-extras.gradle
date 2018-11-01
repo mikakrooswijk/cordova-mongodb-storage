@@ -1,0 +1,4 @@
+dependencies{
+     implementation 'org.mongodb:stitch-android-sdk:4+'
+     implementation 'org.mongodb:stitch-android-services-mongodb-local:4+'
+}
