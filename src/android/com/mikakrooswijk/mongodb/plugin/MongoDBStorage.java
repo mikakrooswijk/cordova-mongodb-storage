@@ -20,9 +20,6 @@ import android.widget.Toast;
 import android.Manifest;
 
 // Base Stitch Packages
-import com.mongodb.DocumentToDBRefTransformer;
-import com.mongodb.client.FindIterable;
-import com.mongodb.embedded.client.MongoEmbeddedSettings;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 

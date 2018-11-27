@@ -3,12 +3,7 @@ package com.mikakrooswijk.mongodb.plugin;
 import com.mongodb.DocumentToDBRefTransformer;
 import com.mongodb.client.FindIterable;
 import com.mongodb.embedded.client.MongoEmbeddedSettings;
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.UpdateOptions;
-import com.mongodb.stitch.android.services.mongodb.local.LocalMongoDbService;
 import org.bson.BsonString;
 import org.bson.Document;
 import org.json.JSONArray;
@@ -16,6 +11,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
 import org.bson.types.ObjectId;
+
+// Base Stitch Packages
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+
+// Packages needed to interact with MongoDB and Stitch
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+
+// Necessary component for working with MongoDB Mobile
+import com.mongodb.stitch.android.services.mongodb.local.LocalMongoDbService;
 
 import java.util.ArrayList;
 
