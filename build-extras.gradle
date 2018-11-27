@@ -1,4 +1,16 @@
+android{
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
 dependencies{
-     implementation 'org.mongodb:stitch-android-sdk:4+'
-     implementation 'org.mongodb:stitch-android-services-mongodb-local:4+'
+     implementation 'org.mongodb:stitch-android-sdk:4.1.0'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-v4:27.1.0'
+    }
 }
