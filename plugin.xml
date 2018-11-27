@@ -26,7 +26,7 @@
         <source-file src="src/android/com/mikakrooswijk/mongodb/plugin/MongoDBStorage.java" target-dir="src/com/creetion/gps/plugin" />
         <source-file src="src/android/com/mikakrooswijk/mongodb/plugin/DatabaseControl.java" target-dir="src/com/creetion/gps/plugin" />
 
-        <source-file src="src/android/libs/arm64-v8a/libbson-1.0.so" target-dir="app/src/main/jniLibs/arm64-v8a"/>
+        <!-- <source-file src="src/android/libs/arm64-v8a/libbson-1.0.so" target-dir="app/src/main/jniLibs/arm64-v8a"/>
         <source-file src="src/android/libs/arm64-v8a/libmongo_embedded.so" target-dir="app/src/main/jniLibs/arm64-v8a"/>
         <source-file src="src/android/libs/arm64-v8a/libmongo_embedded_capi.so" target-dir="app/src/main/jniLibs/arm64-v8a"/>
         <source-file src="src/android/libs/arm64-v8a/libmongoc-1.0.so" target-dir="app/src/main/jniLibs/arm64-v8a"/>
@@ -39,6 +39,6 @@
         <source-file src="src/android/libs/x86_64/libbson-1.0.so" target-dir="app/src/main/jniLibs/x86_64"/>
         <source-file src="src/android/libs/x86_64/libmongo_embedded.so" target-dir="app/src/main/jniLibs/x86_64"/>
         <source-file src="src/android/libs/x86_64/libmongo_embedded_capi.so" target-dir="app/src/main/jniLibs/x86_64"/>
-        <source-file src="src/android/libs/x86_64/libmongoc-1.0.so" target-dir="app/src/main/jniLibs/x86_64"/>
+        <source-file src="src/android/libs/x86_64/libmongoc-1.0.so" target-dir="app/src/main/jniLibs/x86_64"/> -->
     </platform>
 </plugin>
