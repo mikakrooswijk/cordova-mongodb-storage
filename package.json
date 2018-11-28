@@ -1,20 +1,24 @@
 {
-  "name": "cordova-plugin-gps",
+  "name": "cordova-mongodb-storage",
   "version": "0.0.1",
-  "description": "",
+  "description": "This plugin provides a mongodb local storage option to Cordova based applications.",
   "cordova": {
-    "id": "cordova-plugin-gps",
+    "id": "cordova-mongodb-storage",
     "platforms": [
       "android"
     ]
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mikakrooswijk/cordova-mongodb-storage.git"
   },
   "keywords": [
-    "gps",
-    "plugin"
+    "mongodb",
+    "plugin",
+    "stitchSDK",
+    "Mongodb mobile",
+    "cordova",
+    "phonegap"
   ],
   "scripts": {
     "test": "mocha -r ts-node/register 'typescript/**/*.spec.ts'"
@@ -27,17 +31,11 @@
   ],
   "author": "Mika Krooswijk",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/mikakrooswijk/cordova-mongodb-storage/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/mikakrooswijk/cordova-mongodb-storage",
   "dependencies": {
-    "typescript": "^3.0.3"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.4",
-    "@types/mocha": "^5.2.5",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "ts-node": "^7.0.1"
   }
 }
