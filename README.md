@@ -1,6 +1,9 @@
 # cordova-mongodb-storage
 
 This is a Cordova plugin that exposes the functionality of MongoDB Mobile to a Cordova Android app for local storage.
+##### [NPM](https://www.npmjs.com/package/cordova-mongodb-storage)
+
+
 
 **DISCLAIMER** 
 This is WIP. The plugin is far from complete and will contain bugs. If you encounter one or want additional functionality please open an issue.
