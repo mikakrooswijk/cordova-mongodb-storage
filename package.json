@@ -1,6 +1,6 @@
 {
   "name": "cordova-mongodb-storage",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "This plugin provides a mongodb local storage option to Cordova based applications.",
   "cordova": {
     "id": "cordova-mongodb-storage",
@@ -8,6 +8,7 @@
       "android"
     ]
   },
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/mikakrooswijk/cordova-mongodb-storage.git"
@@ -18,7 +19,9 @@
     "stitchSDK",
     "Mongodb mobile",
     "cordova",
-    "phonegap"
+    "phonegap",
+    "ecosystem:cordova",
+    "cordova-android"
   ],
   "scripts": {
     "test": "mocha -r ts-node/register 'typescript/**/*.spec.ts'"
