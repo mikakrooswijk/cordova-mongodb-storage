@@ -36,7 +36,7 @@ mongodb.install = function () {
 cordova.addConstructor(mongodb.install);
 
 function call(className, action, options) {
-    return new Promise((resolve, reject) => {
+    return new Promise( function(resolve, reject){
         cordova.exec(function (returnSuccess){ resolve(returnSuccess); }, function(returnError){ reject(returnError); }, className, action, options);
     });
 }
