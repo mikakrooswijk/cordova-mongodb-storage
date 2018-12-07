@@ -11,7 +11,7 @@ This is WIP. The plugin is far from complete and will contain bugs. If you encou
 The plugin is only supported on Android as of this moment. I am working on an iOS version.
 
 ### Install
-To install this plugin run `cordova add plugin cordova-mongodb-storage` in your projects root folder.
+To install this plugin run `cordova plugin add cordova-mongodb-storage` in your projects root folder.
 
 
 ### Functionality
