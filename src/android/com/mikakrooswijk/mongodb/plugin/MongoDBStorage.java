@@ -59,6 +59,8 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.insertOne(args.getString(0), args.getString(1),
                                 args.getJSONObject(2));
+                        // TODO: return array containing the object. Swift requires the return object to be in an array
+                        // for consistancy the Java implementation should do the same.
                         callbackContext.success(document.toJson());
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
@@ -72,6 +74,8 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.findOne(args.getString(0), args.getString(1),
                                 args.getJSONObject(2));
+                        // TODO: return array containing the object. Swift requires the return object to be in an array
+                        // for consistancy the Java implementation should do the same.
                         callbackContext.success(document.toJson());
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
