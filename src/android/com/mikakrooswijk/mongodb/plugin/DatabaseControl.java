@@ -11,6 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
 import org.bson.types.ObjectId;
+import com.mongodb.client.result.DeleteResult;
+
 
 // Base Stitch Packages
 import com.mongodb.stitch.android.core.Stitch;
@@ -29,7 +31,7 @@ public class DatabaseControl {
 
     MongoClient mobileClient;
 
-    public void initiate(String appID) {
+    public void initiate(String appID) {    
         final StitchAppClient client = Stitch.initializeDefaultAppClient(appID);
         mobileClient = client.getServiceClient(LocalMongoDbService.clientFactory);
     }
@@ -40,23 +42,25 @@ public class DatabaseControl {
         return Document.parse(document.toString());
     }
 
-    public Document findOne(String database, String collection, JSONObject criteria) {
+    public Document findOne(String database, String collection, JSONObject filter) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
-        Document query = Document.parse(criteria.toString());
+        Document query = Document.parse(filter.toString());
 
         Document document;
         Document queryResult = localCollection.find(query).first();
-        if (queryResult == null) {
+
+        if(queryResult == null){
             document = new Document();
         } else {
             document = queryResult;
         }
+        
         return document;
     }
 
-    public Document replaceOne(String database, String collection, JSONObject criteria, JSONObject updateJSON) {
+    public Document replaceOne(String database, String collection, JSONObject filter, JSONObject updateJSON) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
-        Document query = Document.parse(criteria.toString());
+        Document query = Document.parse(filter.toString());
         Document updateDoc = Document.parse(updateJSON.toString());
         localCollection.replaceOne(query, updateDoc, new UpdateOptions().upsert(true));
 
@@ -70,11 +74,11 @@ public class DatabaseControl {
         return results;
     }
 
-    public Document deleteOne(String database, String collection, JSONObject criteria) {
+    public DeleteResult deleteOne(String database, String collection, JSONObject filter) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
-        Document query = Document.parse(criteria.toString());
-        localCollection.deleteOne(query);
-        return Document.parse(criteria.toString());
+        Document query = Document.parse(filter.toString());
+        DeleteResult deleteResult = localCollection.deleteOne(query);
+        return deleteResult;
     }
 
     public Document findById(String database, String collection, String id) {

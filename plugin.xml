@@ -11,8 +11,10 @@
 
     <js-module src="www/plugin.js" name="mongodb">
         <clobbers target="window.plugins.mongodb" />
-    </js-module>
+    </js-module> 
 
+    <dependency id="cordova-plugin-cocoapod-support"/>
+    <dependency id="cordova-plugin-add-swift-support"/>
 
     <platform name="android">
         <framework src="build-extras.gradle" custom="true" type="gradleReference"/>
@@ -21,8 +23,22 @@
                 <param name="android-package" value="com.mikakrooswijk.mongodb.plugin.MongoDBStorage"/>
             </feature>
         </config-file>
-
         <source-file src="src/android/com/mikakrooswijk/mongodb/plugin/MongoDBStorage.java" target-dir="src/com/mikakrooswijk/mongodb/plugin" />
         <source-file src="src/android/com/mikakrooswijk/mongodb/plugin/DatabaseControl.java" target-dir="src/com/mikakrooswijk/mongodb/plugin" />
-       </platform>
+    </platform>
+
+    <platform name="ios">
+        <pods-config ios-min-version="11.0" use-frameworks="true">
+        </pods-config>
+        <pod name="StitchSDK" version="~> 5.0.0" />
+        <pod name="StitchLocalMongoDBService" version="~> 5.0.0" />
+
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="MongoDBStorage">
+                <param name="ios-package" value="MongoDBStorage"/>
+            </feature>
+        </config-file>
+        <source-file src="src/ios/MongoDBStorage.swift"/>
+    </platform>
 </plugin>

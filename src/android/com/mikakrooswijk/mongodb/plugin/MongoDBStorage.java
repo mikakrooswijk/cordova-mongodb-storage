@@ -22,6 +22,7 @@ import android.Manifest;
 // Base Stitch Packages
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.client.result.DeleteResult;
 
 // Packages needed to interact with MongoDB and Stitch
 import com.mongodb.client.MongoClient;
@@ -48,9 +49,12 @@ public class MongoDBStorage extends CordovaPlugin {
         if (action.equals("initiate")) {
             try {
                 database.initiate(args.getString(0));
-                callbackContext.success("true");
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                callbackContext.sendPluginResult(pluginResult);
             } catch (Exception e) {
-                callbackContext.error(e.toString());
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, false);
+                callbackContext.sendPluginResult(pluginResult);
+
             }
         } else if (action.equals("insertOne")) {
             cordova.getThreadPool().execute(new Runnable() {
@@ -59,7 +63,9 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.insertOne(args.getString(0), args.getString(1),
                                 args.getJSONObject(2));
-                        callbackContext.success(document.toJson());
+                        JSONArray jsonArray = new JSONArray();
+                        jsonArray.put(new JSONObject(document.toJson()));
+                        callbackContext.success(jsonArray);
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
@@ -72,7 +78,16 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.findOne(args.getString(0), args.getString(1),
                                 args.getJSONObject(2));
-                        callbackContext.success(document.toJson());
+                        // TODO: return array containing the object. Swift requires the return object to be in an array
+                        // for consistancy the Java implementation should do the same.
+                        if(document.isEmpty()){
+                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
+                            callbackContext.sendPluginResult(pluginResult);
+                        } else {
+                            JSONArray array = new JSONArray();
+                            array.put(new JSONObject(document.toJson()));
+                            callbackContext.success(array);
+                        }
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
@@ -84,8 +99,9 @@ public class MongoDBStorage extends CordovaPlugin {
                 public void run() {
                     try {
                         Document document = database.replaceOne(args.getString(0), args.getString(1),
-                                args.getJSONObject(2), args.getJSONObject(3));
-                        callbackContext.success(document.toJson());
+                        args.getJSONObject(2), args.getJSONObject(3));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
@@ -113,9 +129,16 @@ public class MongoDBStorage extends CordovaPlugin {
                 @Override
                 public void run() {
                     try {
-                        Document document = database.deleteOne(args.getString(0), args.getString(1),
+                        DeleteResult deleteResult = database.deleteOne(args.getString(0), args.getString(1),
                                 args.getJSONObject(2));
-                        callbackContext.success(document.toJson());
+
+                        if(deleteResult.getDeletedCount() > 0){
+                            callbackContext.success(args.getJSONObject(2));
+                        } else{
+                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
+                            callbackContext.sendPluginResult(pluginResult);
+                        }
+                        
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
