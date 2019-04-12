@@ -13,7 +13,7 @@ To install this plugin run `cordova plugin add cordova-mongodb-storage` in your 
 
 
 
-#####iOS
+#### iOS
 * Run pod install in iOS folder of your project. For more information on cocoapods please look [here](https://guides.cocoapods.org/using/getting-started.html).
 * Be sure to set the `Deployment Target` to at least iOS `11.0` in your `.xcodeproj` file.
 
