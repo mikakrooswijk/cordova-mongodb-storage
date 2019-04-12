@@ -10,20 +10,20 @@ mongodb.prototype.insertOne = function(database, collection, document){
     return call('MongoDBStorage', 'insertOne', [database, collection, document]);
 };
 
-mongodb.prototype.findOne = function(database, collection, criteria){
-    return call('MongoDBStorage', 'findOne', [database, collection, criteria]);
+mongodb.prototype.findOne = function(database, collection, filter){
+    return call('MongoDBStorage', 'findOne', [database, collection, filter]);
 };
 
-mongodb.prototype.replaceOne = function(database, collection, criteria, update){
-    return call('MongoDBStorage', 'replaceOne', [database, collection, criteria, update]);
+mongodb.prototype.replaceOne = function(database, collection, filter, update){
+    return call('MongoDBStorage', 'replaceOne', [database, collection, filter, update]);
 };
 
 mongodb.prototype.findAll = function(database, collection){
     return call('MongoDBStorage', 'findAll', [database, collection]);
 };
 
-mongodb.prototype.deleteOne = function(database, collection, criteria){
-    return call('MongoDBStorage', 'deleteOne', [database, collection, criteria]);
+mongodb.prototype.deleteOne = function(database, collection, filter){
+    return call('MongoDBStorage', 'deleteOne', [database, collection, filter]);
 };
 
 mongodb.install = function () {

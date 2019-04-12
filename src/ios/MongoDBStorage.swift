@@ -13,7 +13,7 @@ import MongoSwift
         var pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR)
         
         do {
-            let mongoClient = try Stitch.initializeDefaultAppClient( withClientAppID: "Cordova")
+            let mongoClient = try Stitch.initializeDefaultAppClient( withClientAppID: command.arguments![0] as! String)
             self.localClient = try mongoClient.serviceClient(fromFactory: mongoClientFactory)
 
            pluginResult = CDVPluginResult(
@@ -23,7 +23,7 @@ import MongoSwift
         }catch {
             pluginResult = CDVPluginResult(
                 status: CDVCommandStatus_ERROR,
-                messageAs:  "error, please see xcode logs"
+                messageAs:  false
             )
         }
         
@@ -52,9 +52,7 @@ import MongoSwift
         self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
     }
 
-
-
-@objc(findAll:)
+    @objc(findAll:)
     func findAll(_ command: CDVInvokedUrlCommand) {
         var pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR)
         
@@ -89,8 +87,6 @@ import MongoSwift
             let document = try Document(fromJSON: JSONSerialization.data(withJSONObject: command.arguments![2], options: .prettyPrinted))
             let result = try self.localClient!.db(command.arguments![0] as! String).collection(command.arguments![1] as! String).deleteOne(document)
 
-    
-            
             if(result?.deletedCount == 0){
                 pluginResult = CDVPluginResult(
                     status: CDVCommandStatus_OK,
@@ -101,10 +97,7 @@ import MongoSwift
                     status: CDVCommandStatus_OK,
                     messageAs: [command.arguments![2]]
                 )
-            }
-
-           
-            
+            }    
         }catch {
             pluginResult = CDVPluginResult(
                 status: CDVCommandStatus_ERROR,
@@ -152,7 +145,6 @@ import MongoSwift
         
         self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
     }
-
 
     @objc(replaceOne:)
     func replaceOne(_ command: CDVInvokedUrlCommand) {

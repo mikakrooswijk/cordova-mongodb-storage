@@ -18,48 +18,57 @@ This is the funntionality the plugin provides right now, more will be added in t
 
 ---
 
-#### initiate(`app-id: string`)
+#### initiate(`app-id: string`) -> `boolean`
 
-This function has to be called before doing anything else with the plugin <br>
+This function has to be called before doing anything else with the plugin. <br>
 `app-id` the id of this app.  <br>
+
+`returns` true if the initiation was succesfull, false if it failed. 
 
 ---
 
-#### findOne(`database: string`, `collection: string`, `criteria: JSONObject`)
+#### findOne(`database: string`, `collection: string`, `filter: JSONObject`) -> `JSONObject | boolean`
 
 [API reference for findOne](https://docs.mongodb.com/manual/reference/method/db.collection.findOne/) <br>
 
 `database` the database that is to be queried. <br>
 `collection` the collection that is to be queried <br>
-`criteria` a JSON object that provides the criteria for the query. <br>
+`filter` a JSON object that provides the filter for the query. <br>
+
+`returns` A JSONObject of the first document that was found matching the filter, or false if there was no document found matching the filter.
 
 ---
 
-#### replaceOne(`database: string`, `collection: string`, `criteria: JSONObject`, `update: JSONObject`) 
+#### replaceOne(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `JSONObject`
 
 [API reference for replaceOne](https://docs.mongodb.com/manual/reference/method/db.collection.replaceOne/) <br>
 
 `database` the database that is to be queried. <br>
 `collection` the collection that is to be queried <br>
-`criteria` a JSON object that provides the criteria for the replace. <br>
+`filter` a JSON object that provides the filter for the replace. <br>
 `update` the object that is to be updates or inserted. <br>
+`returns` A JSONObject of the document that was either updated or inserted.
+
 
 ---
-#### findAll(`database: string`, `collection: string`)
+#### findAll(`database: string`, `collection: string`) -> `JSONArray`
 
 [API reference for find](https://docs.mongodb.com/manual/reference/method/db.collection.find/) <br>
 
 Returns all the entries is a given database and collection.  <br>
 `database` the database that is to be queried. <br>
 `collection` the collection that is to be queried <br>
+`returns` A JSONArray with all the documents in de specified database and collection.
 
 ---
-#### deleteOne(`database: string`, `criteria: string`, `criteria`)
+#### deleteOne(`database: string`, `filter: string`, `filter`) -> `JSONObject | boolean`
 
 [API reference for deleteOne](https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/) <br>
 
 `database` the database that is to be queried. <br>
 `collection` the collection that is to be queried <br>
-`criteria` the criteria for the document te be deleted <br>
+`filter` the filter for the document te be deleted <br>
+
+`returns` A JSONObject of the document deleted, false if there was no document found matching the filter.
 
 
