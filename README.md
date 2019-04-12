@@ -8,11 +8,11 @@ This is a Cordova plugin that exposes the functionality of MongoDB Mobile to a C
 ### Install
 To install this plugin run `cordova plugin add cordova-mongodb-storage` in your projects root folder.
 
-####Android
+#### Android
 * Update `defaultMinSdkVersion` in the `build.gradle` file to `21` instead of the standard `19`.
 
 
-#####iOS
+#### iOS
 * Run pod install in iOS folder of your project.
 * Be sure to set the `Deployment Target` to at least iOS `11.0` in your `.xcodeproj` file.
 
