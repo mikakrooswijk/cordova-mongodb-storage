@@ -42,7 +42,7 @@ public class MongoDBStorage extends CordovaPlugin {
     private DatabaseControl database = new DatabaseControl();
 
     @Override
-    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) {
+    public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) {
 
         context = callbackContext;
         boolean result = true;
