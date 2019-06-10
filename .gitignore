@@ -69,3 +69,6 @@ src/android/libs
 
 # build output
 /www
+
+# DS Store
+.DS_Store
