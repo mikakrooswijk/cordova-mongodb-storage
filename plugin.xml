@@ -9,7 +9,7 @@
         <engine name="cordova" version=">=3.0.0"/>
     </engines>
 
-    <js-module src="www/plugin.js" name="mongodb">
+    <js-module src="www/cordova-mongodb.plugin.js" name="mongodb">
         <clobbers target="window.plugins.mongodb" />
     </js-module> 
 

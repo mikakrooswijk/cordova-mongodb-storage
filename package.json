@@ -26,7 +26,14 @@
     "cordova-ios"
   ],
   "scripts": {
-    "test": "mocha -r ts-node/register 'typescript/**/*.spec.ts'"
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "rollup -c",
+    "lint": "eslint typescript/**/*.{ts,js}",
+    "lint:fix": "npm run lint -- --fix"
   },
   "engines": [
     {
@@ -40,7 +47,40 @@
   },
   "homepage": "https://github.com/mikakrooswijk/cordova-mongodb-storage",
   "dependencies": {
+    "lodash": "^4.17.11",
+    "rxjs": "^6.5.2"
   },
+  "files": [
+    "/www",
+    "/src",
+    "README.md",
+    "package.json",
+    "plugin.xml"
+  ],
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.12",
+    "@types/lodash": "^4.14.121",
+    "@types/node": "^10.12.3",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.17.2",
+    "husky": "^2.2.0",
+    "jest": "^24.7.1",
+    "lint-staged": "^8.1.5",
+    "rollup": "^1.10.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
   }
 }

@@ -66,3 +66,6 @@ typings/
 
 #libraries
 src/android/libs
+
+# build output
+/www

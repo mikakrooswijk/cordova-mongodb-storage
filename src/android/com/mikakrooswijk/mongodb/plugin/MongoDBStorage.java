@@ -52,7 +52,7 @@ public class MongoDBStorage extends CordovaPlugin {
                 PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
                 callbackContext.sendPluginResult(pluginResult);
             } catch (Exception e) {
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, false);
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, e.toString());
                 callbackContext.sendPluginResult(pluginResult);
 
             }
