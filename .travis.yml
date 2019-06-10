@@ -19,7 +19,7 @@ after_success:
 deploy: 
   provider: npm 
   email: mikakrooswijk@gmail.com 
-  api_key: $NPM_API_KEY
+  api_key: NPM_API_KEY
   on: 
     tags: true
     branch: master
