@@ -34,9 +34,18 @@ This function has to be called before doing anything else with the plugin. <br>
 
 `returns` true if the initiation was successful, false if it failed.
 
+```js
+window.plugins.mongodb.initiate("appId")
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
 ---
 
-#### insertOne(`database: string`, `collection: string`, `document: JSONObject`) -> `JSONArray | boolean`
+#### insertOne(`database: string`, `collection: string`, `document: JSONObject`) -> `Promise<JSONArray | boolean>`
 
 [API reference for insertOne](https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/) <br>
 
@@ -44,11 +53,23 @@ This function has to be called before doing anything else with the plugin. <br>
 `collection` the collection that is to be queried <br>
 `document` a JSON object that is to be inserted into the database. <br>
 
-`returns` A JSONArray containing the inserted document, false if the insert failed.
+`returns` A promsie that resolves to a JSONArray containing the inserted document, false if the insert failed.
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.insertOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
 
 ---
 
-#### findOne(`database: string`, `collection: string`, `filter: JSONObject`) -> `JSONArray | boolean`
+#### findOne(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<JSONArray | boolean>`
 
 [API reference for findOne](https://docs.mongodb.com/manual/reference/method/db.collection.findOne/) <br>
 
@@ -56,11 +77,22 @@ This function has to be called before doing anything else with the plugin. <br>
 `collection` the collection that is to be queried <br>
 `filter` a JSON object that provides the filter for the query. <br>
 
-`returns` A JSONArray containing the first document that was found matching the filter, or false if there was no document found matching the filter.
+`returns` A promsie that resolves to a JSONArray containing the first document that was found matching the filter, or false if there was no document found matching the filter.
 
+#### Example usage:
+
+```js
+window.plugins.mongodb.findOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
 ---
 
-#### replaceOne(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `boolean`
+#### replaceOne(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `Promise<boolean>`
 
 [API reference for replaceOne](https://docs.mongodb.com/manual/reference/method/db.collection.replaceOne/) <br>
 
@@ -68,24 +100,44 @@ This function has to be called before doing anything else with the plugin. <br>
 `collection` the collection that is to be queried <br>
 `filter` a JSON object that provides the filter for the replace. <br>
 `update` the object that is to be updates or inserted. <br>
-`returns` true when the replace was successful, false when it failed.
+`returns` A promsie that resolves to  totrue when the replace was successful, and to false when it failed.
 
 ##### ! upsert is set to true for this function.
 
+#### Example usage:
+
+```js
+window.plugins.mongodb.replaceOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"}, {"exampleKey": "newExampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
 ---
 
-#### findAll(`database: string`, `collection: string`) -> `JSONArray`
+#### findAll(`database: string`, `collection: string`) -> `romise<JSONArray>`
 
 [API reference for find](https://docs.mongodb.com/manual/reference/method/db.collection.find/) <br>
 
 Returns all the entries is a given database and collection. <br>
 `database` the database that is to be queried. <br>
 `collection` the collection that is to be queried <br>
-`returns` A JSONArray with all the documents in the specified database and collection.
+`returns` A promsie that resolves to a JSONArray with all the documents in the specified database and collection.
 
+```js
+window.plugins.mongodb.findAll('exampleDatabase', 'exampleCollection')
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
 ---
 
-#### deleteOne(`database: string`, `filter: string`, `filter`) -> `JSONArray | boolean`
+#### deleteOne(`database: string`, `filter: string`, `filter`) -> `Promise<JSONArray | boolean>`
 
 [API reference for deleteOne](https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/) <br>
 
@@ -93,4 +145,14 @@ Returns all the entries is a given database and collection. <br>
 `collection` the collection that is to be queried <br>
 `filter` the filter for the document to be deleted <br>
 
-`returns` A JSONArray containing the document deleted, false if there was no document found matching the filter.
+`returns` A promsie that resolves to a JSONArray containing the document deleted, false if there was no document found matching the filter.
+
+```js
+window.plugins.mongodb.deleteOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
