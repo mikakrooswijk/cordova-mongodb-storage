@@ -1,6 +1,6 @@
 {
   "name": "cordova-mongodb-storage",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "This plugin provides a mongodb local storage option to Cordova based applications.",
   "cordova": {
     "id": "cordova-mongodb-storage",
