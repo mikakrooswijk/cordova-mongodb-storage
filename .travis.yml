@@ -1,4 +1,11 @@
 language: nodejs
+node_js:
+   - "9"
+
+branches:
+  only:
+    - master
+    - develop
 
 before_script:
 - npm install
