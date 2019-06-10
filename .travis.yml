@@ -1,0 +1,10 @@
+language: nodejs
+
+before_script:
+- npm install
+
+script:
+- npm run build
+
+after_success:
+- npm pack
