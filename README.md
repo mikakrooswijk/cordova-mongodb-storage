@@ -1,3 +1,6 @@
+![npm](https://img.shields.io/npm/v/cordova-mongodb-storage.svg)
+![npm](https://img.shields.io/npm/dt/cordova-mongodb-storage.svg)
+
 # cordova-mongodb-storage
 
 This is a Cordova plugin that exposes the functionality of MongoDB Mobile to a Cordova Android or iOS app for local storage.
