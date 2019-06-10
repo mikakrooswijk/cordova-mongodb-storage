@@ -32,7 +32,7 @@
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "rollup -c",
-    "lint": "eslint typescript/**/*.{ts,js}",
+    "lint": "eslint typescript/**/*.ts",
     "lint:fix": "npm run lint -- --fix"
   },
   "engines": [

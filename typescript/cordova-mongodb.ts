@@ -5,15 +5,15 @@ export class CordovaMongodb {
         return Java.call('MongoDBStorage', 'initiate', [appId]);
     }
 
-    public insertOne(database: string, collection: string, document: any): Promise<any> {
+    public insertOne(database: string, collection: string, document: object): Promise<any> {
         return Java.call('MongoDBStorage', 'insertOne', [database, collection, document]);
     }
 
-    public findOne(database: string, collection: string, filter: any): Promise<any> {
+    public findOne(database: string, collection: string, filter: object): Promise<any> {
         return Java.call('MongoDBStorage', 'findOne', [database, collection, filter]);
     }
 
-    public replaceOne(database: string, collection: string, filter: any, update: any): Promise<any> {
+    public replaceOne(database: string, collection: string, filter: object, update: object): Promise<any> {
         return Java.call('MongoDBStorage', 'replaceOne', [database, collection, filter, update]);
     }
 
@@ -21,7 +21,15 @@ export class CordovaMongodb {
         return Java.call('MongoDBStorage', 'findAll', [database, collection]);
     }
 
-    public deleteOne(database: string, collection: string, filter: any): Promise<any> {
+    public deleteOne(database: string, collection: string, filter: object): Promise<any> {
         return Java.call('MongoDBStorage', 'deleteOne', [database, collection, filter]);
+    }
+
+    public updateOne(database: string, collection: string, filter: object, update: object){
+        return Java.call("MongoDBStorage", "updateOne", [database, collection, filter, update]);
+    }
+
+    public updateMany(database: string, collection: string, filter: object, update: object){
+        return Java.call("MongoDBStorage", "updateMany", [database, collection, filter, update]);
     }
 }

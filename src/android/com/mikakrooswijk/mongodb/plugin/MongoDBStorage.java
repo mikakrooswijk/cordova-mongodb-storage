@@ -144,6 +144,34 @@ public class MongoDBStorage extends CordovaPlugin {
                     }
                 }
             });
+        } else if (action.equals("updateOne")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Document document = database.updateOne(args.getString(0), args.getString(1),
+                        args.getJSONObject(2), args.getJSONObject(3));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        } else if (action.equals("updateMany")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Document document = database.updateMany(args.getString(0), args.getString(1),
+                        args.getJSONObject(2), args.getJSONObject(3));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
         } else {
             context.error("Invalid Action");
             result = false;
