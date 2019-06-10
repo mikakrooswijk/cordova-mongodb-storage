@@ -87,4 +87,22 @@ public class DatabaseControl {
         query.put("_id", new ObjectId(id));
         return localCollection.find(query).first();
     }
+
+    public Document updateOne(String database, String collection, JSONObject filter, JSONObject updateJSON) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        Document query = Document.parse(filter.toString());
+        Document updateDoc = Document.parse(updateJSON.toString());
+        localCollection.updateOne(query, updateDoc);
+
+        return Document.parse(updateJSON.toString());
+    }
+
+    public Document updateMany(String database, String collection, JSONObject filter, JSONObject updateJSON) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        Document query = Document.parse(filter.toString());
+        Document updateDoc = Document.parse(updateJSON.toString());
+        localCollection.updateMany(query, updateDoc);
+
+        return Document.parse(updateJSON.toString());
+    }
 }
