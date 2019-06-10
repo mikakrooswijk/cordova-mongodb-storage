@@ -1,3 +1,6 @@
+![npm](https://img.shields.io/npm/v/cordova-mongodb-storage.svg)
+![npm](https://img.shields.io/npm/dt/cordova-mongodb-storage.svg)
+
 # cordova-mongodb-storage
 
 This is a Cordova plugin that exposes the functionality of MongoDB Mobile to a Cordova Android or iOS app for local storage.
@@ -108,6 +111,56 @@ window.plugins.mongodb.findOne('exampleDatabase', 'exampleCollection', {"example
 
 ```js
 window.plugins.mongodb.replaceOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"}, {"exampleKey": "newExampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
+
+#### updateOne(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `Promise<boolean>`
+
+[API reference for updateOne](https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`filter` a JSON object that provides the filter for the update. <br>
+`update` the update to be made. <br>
+`returns` A promsie that resolves to  totrue when the update was successful, and to false when it failed.
+
+In the update object be sure to use the Update operators, such as `$set` and `$rename`
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.updateOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"}, {$set: {"exampleKey": "newExampleValue"}})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
+
+#### updateMany(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `Promise<boolean>`
+
+[API reference for updateMany](https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`filter` a JSON object that provides the filter for the update. <br>
+`update` the updates to be made <br>
+`returns` A promsie that resolves to  totrue when the update was successful, and to false when it failed.
+
+In the update object be sure to use the Update operators, such as `$set` and `$rename`
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.updateMany('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"}, {$set: {"exampleKey": "newExampleValue"}})
 .then((result) => {
     console.log(result);
 })

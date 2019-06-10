@@ -170,6 +170,54 @@ import MongoSwift
         self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
     }
 
+    @objc(updateOne:)
+    func updateOne(_ command: CDVInvokedUrlCommand) {
+        var pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR)
+        
+        do {
+            let filter = try Document(fromJSON: JSONSerialization.data(withJSONObject: command.arguments![2], options: .prettyPrinted))
+            let update = try Document(fromJSON: JSONSerialization.data(withJSONObject: command.arguments![3], options: .prettyPrinted))
+            let result = try self.localClient!.db(command.arguments![0] as! String).collection(command.arguments![1] as! String).updateOne(filter: filter, update: update)
+
+           pluginResult = CDVPluginResult(
+                status: CDVCommandStatus_OK,
+                messageAs: true
+            )
+        
+        }catch {
+            pluginResult = CDVPluginResult(
+                status: CDVCommandStatus_ERROR,
+                messageAs:  "error, please see xcode logs"
+            )
+        }
+        
+        self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
+    }
+
+    @objc(updateMany:)
+    func updateMany(_ command: CDVInvokedUrlCommand) {
+        var pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR)
+        
+        do {
+            let filter = try Document(fromJSON: JSONSerialization.data(withJSONObject: command.arguments![2], options: .prettyPrinted))
+            let update = try Document(fromJSON: JSONSerialization.data(withJSONObject: command.arguments![3], options: .prettyPrinted))
+            let result = try self.localClient!.db(command.arguments![0] as! String).collection(command.arguments![1] as! String).updateMany(filter: filter, update: update)
+
+           pluginResult = CDVPluginResult(
+                status: CDVCommandStatus_OK,
+                messageAs: true
+            )
+        
+        }catch {
+            pluginResult = CDVPluginResult(
+                status: CDVCommandStatus_ERROR,
+                messageAs:  "error, please see xcode logs"
+            )
+        }
+        
+        self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
+    }
+
     // Credit to @ayaio on stackoverflow.com for this function.
     func convertToDictionary(text: String) -> [String: Any]? {
     if let data = text.data(using: .utf8) {

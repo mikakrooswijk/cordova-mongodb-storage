@@ -52,7 +52,7 @@ public class MongoDBStorage extends CordovaPlugin {
                 PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
                 callbackContext.sendPluginResult(pluginResult);
             } catch (Exception e) {
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, false);
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, e.toString());
                 callbackContext.sendPluginResult(pluginResult);
 
             }
@@ -139,6 +139,34 @@ public class MongoDBStorage extends CordovaPlugin {
                             callbackContext.sendPluginResult(pluginResult);
                         }
                         
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        } else if (action.equals("updateOne")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Document document = database.updateOne(args.getString(0), args.getString(1),
+                        args.getJSONObject(2), args.getJSONObject(3));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        } else if (action.equals("updateMany")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Document document = database.updateMany(args.getString(0), args.getString(1),
+                        args.getJSONObject(2), args.getJSONObject(3));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
