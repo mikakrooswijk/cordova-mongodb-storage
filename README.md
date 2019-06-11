@@ -1,5 +1,6 @@
 ![npm](https://img.shields.io/npm/v/cordova-mongodb-storage.svg)
 ![npm](https://img.shields.io/npm/dt/cordova-mongodb-storage.svg)
+![Travis (.org) branch](https://img.shields.io/travis/mikakrooswijk/cordova-mongodb-storage/master.svg)
 
 # cordova-mongodb-storage
 
