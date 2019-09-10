@@ -47,7 +47,7 @@
   },
   "homepage": "https://github.com/mikakrooswijk/cordova-mongodb-storage",
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "rxjs": "^6.5.2"
   },
   "files": [
@@ -55,7 +55,8 @@
     "/src",
     "README.md",
     "package.json",
-    "plugin.xml"
+    "plugin.xml",
+    "build-extras.gradle"
   ],
   "devDependencies": {
     "@babel/cli": "^7.4.4",
