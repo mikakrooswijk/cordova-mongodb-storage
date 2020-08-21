@@ -150,7 +150,8 @@ public class MongoDBStorage extends CordovaPlugin {
                 public void run() {
                     try {
                         Boolean res = database.deleteAll(args.getString(0), args.getString(1));
-                        callbackContext.success(res);
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
