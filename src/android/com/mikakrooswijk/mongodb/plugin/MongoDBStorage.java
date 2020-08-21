@@ -144,6 +144,18 @@ public class MongoDBStorage extends CordovaPlugin {
                     }
                 }
             });
+        } else if (action.equals("deleteAll")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Boolean res = database.deleteAll(args.getString(0), args.getString(1));
+                        callbackContext.success(res);
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
         } else if (action.equals("updateOne")) {
             cordova.getThreadPool().execute(new Runnable() {
                 @Override

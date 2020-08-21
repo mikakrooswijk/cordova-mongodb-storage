@@ -81,6 +81,12 @@ public class DatabaseControl {
         return deleteResult;
     }
 
+    public Boolean deleteAll(String database, String collection) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        localCollection.drop();
+        return true;
+    }
+
     public Document findById(String database, String collection, String id) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         Document query = new Document();
