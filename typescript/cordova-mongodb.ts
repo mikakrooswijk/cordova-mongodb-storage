@@ -9,6 +9,10 @@ export class CordovaMongodb {
         return Java.call('MongoDBStorage', 'insertOne', [database, collection, document]);
     }
 
+    public insertMany(database: string, collection: string, documents: object): Promise<any> {
+        return Java.call('MongoDBStorage', 'insertMany', [database, collection, documents]);
+    }
+
     public findOne(database: string, collection: string, filter: object): Promise<any> {
         return Java.call('MongoDBStorage', 'findOne', [database, collection, filter]);
     }

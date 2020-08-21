@@ -42,6 +42,19 @@ public class DatabaseControl {
         return Document.parse(document.toString());
     }
 
+    public ArrayList<Document> insertMany(String database, String collection, JSONArray documents) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+
+        ArrayList<Document> documentsParsed = new ArrayList<Document>();
+        for (int i = 0; i < documents.length(); i++) {
+            JSONObject document = documents.getJSONObject(i);
+            documentsParsed.add(Document.parse(document.toString()));
+        }
+
+        localCollection.insertMany(documentsParsed);
+        return documentsParsed;
+    }
+
     public Document findOne(String database, String collection, JSONObject filter) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         Document query = Document.parse(filter.toString());

@@ -71,6 +71,23 @@ public class MongoDBStorage extends CordovaPlugin {
                     }
                 }
             });
+        } else if (action.equals("insertMany")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ArrayList<Document> documents = database.insertMany(args.getString(0), args.getString(1),
+                                args.getJSONArray(2));
+                        JSONArray jsonArray = new JSONArray();
+                        for (Document document : documents) {
+                            jsonArray.put(new JSONObject(document.toJson()));
+                        }
+                        callbackContext.success(jsonArray);
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
         } else if (action.equals("findOne")) {
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
