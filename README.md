@@ -215,8 +215,6 @@ window.plugins.mongodb.deleteOne('exampleDatabase', 'exampleCollection', {"examp
 
 #### deleteAll(`database: string`, `collection: string`) -> `Promise<boolean>`
 
-[API reference for deleteOne](https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/) <br>
-
 `database` the database that is to be queried. <br>
 `collection` the collection that is to be removed <br>
 
