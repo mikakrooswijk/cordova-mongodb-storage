@@ -1,17 +1,19 @@
 ![npm](https://img.shields.io/npm/v/cordova-mongodb-storage.svg)
 ![npm](https://img.shields.io/npm/dt/cordova-mongodb-storage.svg)
 
-# cordova-mongodb-storage
+# cordova-mongodb-storage-tpm
+
+This is an update of https://github.com/mikakrooswijk/cordova-mongodb-storage
 
 This is a Cordova plugin that exposes the functionality of MongoDB Mobile to a Cordova Android or iOS app for local storage.
 
-##### [NPM](https://www.npmjs.com/package/cordova-mongodb-storage)
+##### [NPM](https://www.npmjs.com/package/cordova-mongodb-storage-tpm)
 
 ---
 
 ### Install
 
-To install this plugin run `cordova plugin add cordova-mongodb-storage` in your projects root folder.
+To install this plugin run `cordova plugin add cordova-mongodb-storage-tpm` in your projects root folder.
 
 #### Android
 
@@ -202,6 +204,26 @@ window.plugins.mongodb.findAll('exampleDatabase', 'exampleCollection')
 
 ```js
 window.plugins.mongodb.deleteOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+
+
+#### deleteAll(`database: string`, `collection: string`) -> `Promise<boolean>`
+
+[API reference for deleteOne](https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be removed <br>
+
+`returns` A promsie that resolves to  totrue when the update was successful, and to false when it failed.
+
+```js
+window.plugins.mongodb.deleteAll('exampleDatabase', 'exampleCollection')
 .then((result) => {
     console.log(result);
 })
