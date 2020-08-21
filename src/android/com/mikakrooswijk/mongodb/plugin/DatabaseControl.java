@@ -42,17 +42,17 @@ public class DatabaseControl {
         return Document.parse(document.toString());
     }
 
-    public ArrayList<Document> insertMany(String database, String collection, JSONArray documents) {
+    public JSONArray insertMany(String database, String collection, JSONArray documents) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
 
-        ArrayList<Document> documentsParsed = new ArrayList<Document>();
-        for (int i = 0; i < documents.length(); i++) {
-            JSONObject document = documents.getJSONObject(i);
-            documentsParsed.add(Document.parse(document.toString()));
-        }
+        // ArrayList<Document> documentsParsed = new ArrayList<Document>();
+        // for (int i = 0; i < documents.length(); i++) {
+        //     JSONObject document = documents.getJSONObject(i);
+        //     documentsParsed.add(Document.parse(document.toString()));
+        // }
 
-        localCollection.insertMany(documentsParsed);
-        return documentsParsed;
+        // localCollection.insertMany(documentsParsed);
+        return documents;
     }
 
     public Document findOne(String database, String collection, JSONObject filter) {
