@@ -87,6 +87,13 @@ public class DatabaseControl {
         return results;
     }
 
+    public Long count(String database, String collection, JSONObject filter) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        Document query = Document.parse(filter.toString());
+
+        return localCollection.count(query);
+    }
+
     public DeleteResult deleteOne(String database, String collection, JSONObject filter) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         Document query = Document.parse(filter.toString());

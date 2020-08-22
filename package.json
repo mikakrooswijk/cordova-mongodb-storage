@@ -1,6 +1,6 @@
 {
   "name": "cordova-mongodb-storage-tpm",
-  "version": "0.0.9",
+  "version": "0.0.1",
   "description": "This plugin provides a mongodb local storage option to Cordova based applications.",
   "cordova": {
     "id": "cordova-mongodb-storage-tpm",

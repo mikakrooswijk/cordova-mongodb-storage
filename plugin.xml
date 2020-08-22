@@ -1,6 +1,6 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="cordova-mongodb-storage-tpm" version="0.0.2">
+        id="cordova-mongodb-storage-tpm" version="0.0.1">
     <name>MongoDBStorage</name>
     <description>Cordova MongoDB Plugin</description>
     <keywords>Mongo,MongoDB, MongoDB Mobile</keywords>
