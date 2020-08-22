@@ -74,6 +74,30 @@ window.plugins.mongodb.insertOne('exampleDatabase', 'exampleCollection', {"examp
 
 ---
 
+#### insertMany(`database: string`, `collection: string`, `documents: JSONArray`) -> `Promise<JSONArray>`
+
+[API reference for insertMany](https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`documents` a JSON array that are to be inserted into the database. <br>
+
+`returns` A promsie that resolves to a JSONArray containing the inserted documents.
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.insertMany('exampleDatabase', 'exampleCollection', [{"exampleKey": "exampleValue"}, {"exampleKey2": "exampleValue2"}])
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+
+---
+
 #### findOne(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<JSONArray | boolean>`
 
 [API reference for findOne](https://docs.mongodb.com/manual/reference/method/db.collection.findOne/) <br>
@@ -183,6 +207,29 @@ Returns all the entries is a given database and collection. <br>
 
 ```js
 window.plugins.mongodb.findAll('exampleDatabase', 'exampleCollection')
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
+
+#### count(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<long>`
+
+[API reference for count](https://docs.mongodb.com/manual/reference/method/db.collection.count/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`filter` a JSON object that provides the filter for the query. <br>
+
+`returns` A promsie that resolves to a long with the number of records.
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.count('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
 .then((result) => {
     console.log(result);
 })
