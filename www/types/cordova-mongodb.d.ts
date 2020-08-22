@@ -5,6 +5,7 @@ export declare class CordovaMongodb {
     findOne(database: string, collection: string, filter: object): Promise<any>;
     replaceOne(database: string, collection: string, filter: object, update: object): Promise<any>;
     findAll(database: string, collection: string): Promise<any>;
+    count(database: string, collection: string, filter: object): Promise<any>;
     deleteOne(database: string, collection: string, filter: object): Promise<any>;
     deleteAll(database: string, collection: string): Promise<any>;
     updateOne(database: string, collection: string, filter: object, update: object): Promise<any>;

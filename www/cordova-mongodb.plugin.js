@@ -84,6 +84,11 @@
         return Java.call('MongoDBStorage', 'findAll', [database, collection]);
       }
     }, {
+      key: "count",
+      value: function count(database, collection, filter) {
+        return Java.call('MongoDBStorage', 'count', [database, collection, filter]);
+      }
+    }, {
       key: "deleteOne",
       value: function deleteOne(database, collection, filter) {
         return Java.call('MongoDBStorage', 'deleteOne', [database, collection, filter]);
