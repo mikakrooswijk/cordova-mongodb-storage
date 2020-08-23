@@ -87,6 +87,24 @@ public class DatabaseControl {
         return results;
     }
 
+    public ArrayList<Document> find(String database, String collection, JSONObject filter, JSONObject sort, Integer skip, Integer limit) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        Document query = Document.parse(filter.toString());
+
+        Document document;
+        FindIterable<Document> cursor = localCollection.find(query);
+        if (skip > -1) {
+            cursor.skip(skip);
+        }
+        if (limit > -1) {
+            cursor.limit(limit);
+        }
+        cursor.sort(sort);
+
+        ArrayList<Document> results = (ArrayList<Document>) cursor.into(new ArrayList<Document>());
+        return results;
+    }
+
     public Long count(String database, String collection, JSONObject filter) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         Document query = Document.parse(filter.toString());

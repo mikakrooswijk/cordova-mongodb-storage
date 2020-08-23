@@ -25,6 +25,10 @@ export class CordovaMongodb {
         return Java.call('MongoDBStorage', 'findAll', [database, collection]);
     }
 
+    public find(database: string, collection: string, filter: object, order: object = {}, skip: number = -1, limit: number = -1): Promise<any> {
+        return Java.call('MongoDBStorage', 'find', [database, collection, filter, order, skip, limit]);
+    }
+
     public count(database: string, collection: string, filter: object): Promise<any> {
         return Java.call('MongoDBStorage', 'count', [database, collection, filter]);
     }
