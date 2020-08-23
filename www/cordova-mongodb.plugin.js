@@ -84,6 +84,14 @@
         return Java.call('MongoDBStorage', 'findAll', [database, collection]);
       }
     }, {
+      key: "find",
+      value: function find(database, collection, filter) {
+        var order = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+        var skip = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : -1;
+        var limit = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : -1;
+        return Java.call('MongoDBStorage', 'find', [database, collection, filter, order, skip, limit]);
+      }
+    }, {
       key: "count",
       value: function count(database, collection, filter) {
         return Java.call('MongoDBStorage', 'count', [database, collection, filter]);
