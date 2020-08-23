@@ -216,6 +216,32 @@ window.plugins.mongodb.findAll('exampleDatabase', 'exampleCollection')
 ```
 ---
 
+#### find(`database: string`, `collection: string`, `filter: JSONObject`, `order: JSONObject`, `skip: int`, `limit: int`) -> `Promise<JSONArray>`
+
+[API reference for find](https://docs.mongodb.com/manual/reference/method/db.collection.find/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`filter` a JSON object that provides the filter for the query. <br>
+`order` a JSON object that provides the order for the query. (1 -> Ascending, -1 -> Descending) (OPTIONAL)<br>
+`skip` a int that provides the number of skip. (OPTIONAL)<br>
+`limit` a int that provides the number of limit. (OPTIONAL)<br>
+
+`returns` A promsie that resolves to a JSONArray containing the documents that was found matching the filter.
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.find('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"}, {"exampleKey": 1}, 5, 10)
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
+
 #### count(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<long>`
 
 [API reference for count](https://docs.mongodb.com/manual/reference/method/db.collection.count/) <br>
