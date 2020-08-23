@@ -90,6 +90,7 @@ public class DatabaseControl {
     public ArrayList<Document> find(String database, String collection, JSONObject filter, JSONObject sort, Integer skip, Integer limit) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         Document query = Document.parse(filter.toString());
+        Document sortQuery = Document.parse(sort.toString());
 
         Document document;
         FindIterable<Document> cursor = localCollection.find(query);
@@ -99,7 +100,7 @@ public class DatabaseControl {
         if (limit > -1) {
             cursor.limit(limit);
         }
-        cursor.sort(sort);
+        cursor.sort(sortQuery);
 
         ArrayList<Document> results = (ArrayList<Document>) cursor.into(new ArrayList<Document>());
         return results;
