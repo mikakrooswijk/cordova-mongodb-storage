@@ -38,8 +38,9 @@ public class DatabaseControl {
 
     public Document insertOne(String database, String collection, JSONObject document) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
-        localCollection.insertOne(Document.parse(document.toString()));
-        return Document.parse(document.toString());
+        Document insertDoc = Document.parse(document.toString());
+        localCollection.insertOne(insertDoc);
+        return insertDoc;
     }
 
     public ArrayList<Document> insertMany(String database, String collection, JSONArray documents) throws JSONException {
@@ -77,7 +78,7 @@ public class DatabaseControl {
         Document updateDoc = Document.parse(updateJSON.toString());
         localCollection.replaceOne(query, updateDoc, new UpdateOptions().upsert(true));
 
-        return Document.parse(updateJSON.toString());
+        return updateDoc;
     }
 
     public ArrayList<Document> findAll(String database, String collection) {
