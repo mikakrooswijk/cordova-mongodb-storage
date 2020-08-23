@@ -50,7 +50,7 @@ window.plugins.mongodb.initiate("appId")
 ```
 ---
 
-#### insertOne(`database: string`, `collection: string`, `document: JSONObject`) -> `Promise<JSONArray | boolean>`
+#### insertOne(`database: string`, `collection: string`, `document: JSONObject`) -> `Promise<JSONObject | boolean>`
 
 [API reference for insertOne](https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/) <br>
 
@@ -98,7 +98,7 @@ window.plugins.mongodb.insertMany('exampleDatabase', 'exampleCollection', [{"exa
 
 ---
 
-#### findOne(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<JSONArray | boolean>`
+#### findOne(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<JSONObject | boolean>`
 
 [API reference for findOne](https://docs.mongodb.com/manual/reference/method/db.collection.findOne/) <br>
 
@@ -106,7 +106,7 @@ window.plugins.mongodb.insertMany('exampleDatabase', 'exampleCollection', [{"exa
 `collection` the collection that is to be queried <br>
 `filter` a JSON object that provides the filter for the query. <br>
 
-`returns` A promsie that resolves to a JSONArray containing the first document that was found matching the filter, or false if there was no document found matching the filter.
+`returns` A promsie that resolves to a JSONObject containing the first document that was found matching the filter, or false if there was no document found matching the filter.
 
 #### Example usage:
 
@@ -121,7 +121,7 @@ window.plugins.mongodb.findOne('exampleDatabase', 'exampleCollection', {"example
 ```
 ---
 
-#### replaceOne(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `Promise<boolean>`
+#### replaceOne(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `Promise<JSONObject>`
 
 [API reference for replaceOne](https://docs.mongodb.com/manual/reference/method/db.collection.replaceOne/) <br>
 
@@ -129,7 +129,7 @@ window.plugins.mongodb.findOne('exampleDatabase', 'exampleCollection', {"example
 `collection` the collection that is to be queried <br>
 `filter` a JSON object that provides the filter for the replace. <br>
 `update` the object that is to be updates or inserted. <br>
-`returns` A promsie that resolves to  totrue when the replace was successful, and to false when it failed.
+`returns` A promsie that resolves with the object replaced.
 
 ##### ! upsert is set to true for this function.
 
