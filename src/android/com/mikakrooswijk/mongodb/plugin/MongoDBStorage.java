@@ -63,9 +63,7 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.insertOne(args.getString(0), args.getString(1),
                                 args.getJSONObject(2));
-                        JSONArray jsonArray = new JSONArray();
-                        jsonArray.put(new JSONObject(document.toJson()));
-                        callbackContext.success(jsonArray);
+                        callbackContext.success(new JSONObject(document.toJson()));
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
@@ -101,9 +99,7 @@ public class MongoDBStorage extends CordovaPlugin {
                             PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
                             callbackContext.sendPluginResult(pluginResult);
                         } else {
-                            JSONArray array = new JSONArray();
-                            array.put(new JSONObject(document.toJson()));
-                            callbackContext.success(array);
+                            callbackContext.success(new JSONObject(document.toJson()));
                         }
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
