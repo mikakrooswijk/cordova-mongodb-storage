@@ -265,7 +265,7 @@ window.plugins.mongodb.count('exampleDatabase', 'exampleCollection', {"exampleKe
 ```
 ---
 
-#### deleteOne(`database: string`, `filter: string`, `filter`) -> `Promise<JSONArray | boolean>`
+#### deleteOne(`database: string`, `filter: string`, `filter: JSONObject`) -> `Promise<JSONObject | boolean>`
 
 [API reference for deleteOne](https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/) <br>
 
