@@ -121,6 +121,13 @@ public class DatabaseControl {
         return deleteResult;
     }
 
+    public DeleteResult deleteMany(String database, String collection, JSONObject filter) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        Document query = Document.parse(filter.toString());
+        DeleteResult deleteResult = localCollection.deleteMany(query);
+        return deleteResult;
+    }
+
     public Boolean deleteAll(String database, String collection) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         localCollection.drop();

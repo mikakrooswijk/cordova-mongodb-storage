@@ -113,8 +113,7 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.replaceOne(args.getString(0), args.getString(1),
                         args.getJSONObject(2), args.getJSONObject(3));
-                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                        callbackContext.sendPluginResult(pluginResult);
+                        callbackContext.success(new JSONObject(document.toJson()));
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
@@ -179,7 +178,29 @@ public class MongoDBStorage extends CordovaPlugin {
                                 args.getJSONObject(2));
 
                         if(deleteResult.getDeletedCount() > 0){
-                            callbackContext.success(args.getJSONObject(2));
+                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                            callbackContext.sendPluginResult(pluginResult);
+                        } else{
+                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
+                            callbackContext.sendPluginResult(pluginResult);
+                        }
+                        
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        } else if (action.equals("deleteMany")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        DeleteResult deleteResult = database.deleteMany(args.getString(0), args.getString(1),
+                                args.getJSONObject(2));
+
+                        if(deleteResult.getDeletedCount() > 0){
+                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                            callbackContext.sendPluginResult(pluginResult);
                         } else{
                             PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
                             callbackContext.sendPluginResult(pluginResult);

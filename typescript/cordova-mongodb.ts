@@ -36,6 +36,10 @@ export class CordovaMongodb {
     public deleteOne(database: string, collection: string, filter: object): Promise<any> {
         return Java.call('MongoDBStorage', 'deleteOne', [database, collection, filter]);
     }
+    
+    public deleteMany(database: string, collection: string, filter: object): Promise<any> {
+        return Java.call('MongoDBStorage', 'deleteMany', [database, collection, filter]);
+    }
 
     public deleteAll(database: string, collection: string): Promise<any> {
         return Java.call('MongoDBStorage', 'deleteAll', [database, collection]);

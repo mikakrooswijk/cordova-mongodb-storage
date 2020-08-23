@@ -102,6 +102,11 @@
         return Java.call('MongoDBStorage', 'deleteOne', [database, collection, filter]);
       }
     }, {
+      key: "deleteMany",
+      value: function deleteMany(database, collection, filter) {
+        return Java.call('MongoDBStorage', 'deleteMany', [database, collection, filter]);
+      }
+    }, {
       key: "deleteAll",
       value: function deleteAll(database, collection) {
         return Java.call('MongoDBStorage', 'deleteAll', [database, collection]);

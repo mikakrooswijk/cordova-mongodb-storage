@@ -8,6 +8,7 @@ export declare class CordovaMongodb {
     find(database: string, collection: string, filter: object, order?: object, skip?: number, limit?: number): Promise<any>;
     count(database: string, collection: string, filter: object): Promise<any>;
     deleteOne(database: string, collection: string, filter: object): Promise<any>;
+    deleteMany(database: string, collection: string, filter: object): Promise<any>;
     deleteAll(database: string, collection: string): Promise<any>;
     updateOne(database: string, collection: string, filter: object, update: object): Promise<any>;
     updateMany(database: string, collection: string, filter: object, update: object): Promise<any>;
