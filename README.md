@@ -265,7 +265,7 @@ window.plugins.mongodb.count('exampleDatabase', 'exampleCollection', {"exampleKe
 ```
 ---
 
-#### deleteOne(`database: string`, `filter: string`, `filter: JSONObject`) -> `Promise<JSONObject | boolean>`
+#### deleteOne(`database: string`, `filter: string`, `filter: JSONObject`) -> `Promise<boolean>`
 
 [API reference for deleteOne](https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/) <br>
 
@@ -273,7 +273,7 @@ window.plugins.mongodb.count('exampleDatabase', 'exampleCollection', {"exampleKe
 `collection` the collection that is to be queried <br>
 `filter` the filter for the document to be deleted <br>
 
-`returns` A promsie that resolves to a JSONArray containing the document deleted, false if there was no document found matching the filter.
+`returns` A promise that resolves to a boolean, true if the document was deleted, false if there was no document found matching the filter.
 
 ```js
 window.plugins.mongodb.deleteOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
@@ -284,7 +284,28 @@ window.plugins.mongodb.deleteOne('exampleDatabase', 'exampleCollection', {"examp
     console.error(error);
 });
 ```
+---
 
+#### deleteMany(`database: string`, `filter: string`, `filter: JSONObject`) -> `Promise<boolean>`
+
+[API reference for deleteMany](https://docs.mongodb.com/manual/reference/method/db.collection.deleteMany/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`filter` the filter for the documents to be deleted <br>
+
+`returns` A promise that resolves to a boolean, true if the documents was deleted, false if there was no documents found matching the filter.
+
+```js
+window.plugins.mongodb.deleteOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
 
 #### deleteAll(`database: string`, `collection: string`) -> `Promise<boolean>`
 
