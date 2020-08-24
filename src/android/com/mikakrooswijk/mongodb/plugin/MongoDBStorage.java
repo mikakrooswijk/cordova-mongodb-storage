@@ -231,8 +231,7 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.updateOne(args.getString(0), args.getString(1),
                         args.getJSONObject(2), args.getJSONObject(3));
-                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                        callbackContext.sendPluginResult(pluginResult);
+                        callbackContext.success(new JSONObject(document.toJson()));
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
