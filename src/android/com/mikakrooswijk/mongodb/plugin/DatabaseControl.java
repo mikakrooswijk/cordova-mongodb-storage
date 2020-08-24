@@ -147,7 +147,7 @@ public class DatabaseControl {
         Document updateDoc = Document.parse(updateJSON.toString());
         localCollection.updateOne(query, updateDoc);
 
-        return Document.parse(updateJSON.toString());
+        return updateDoc;
     }
 
     public Document updateMany(String database, String collection, JSONObject filter, JSONObject updateJSON) {
