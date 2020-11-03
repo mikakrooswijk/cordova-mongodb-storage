@@ -1,5 +1,5 @@
 {
-  "name": "cordova-mongodb-storage-tpm",
+  "name": "@digitaltpm/cordova-mongodb-storage-tpm",
   "version": "0.0.1",
   "description": "This plugin provides a mongodb local storage option to Cordova based applications.",
   "cordova": {
@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DigitalTPM/cordova-mongodb-storage.git"
+    "url": "git+https://github.com/DigitalTPM/cordova-mongodb-storage.git"
   },
   "keywords": [
     "mongodb",
@@ -87,5 +87,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "main": "jest.config.js"
 }
