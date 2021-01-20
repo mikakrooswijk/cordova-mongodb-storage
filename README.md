@@ -56,7 +56,7 @@ window.plugins.mongodb.initiate("appId")
 `collection` the collection that is to be queried <br>
 `document` a JSON object that is to be inserted into the database. <br>
 
-`returns` A promsie that resolves to a JSONArray containing the inserted document, false if the insert failed.
+`returns` A promise that resolves to a JSONArray containing the inserted document, false if the insert failed.
 
 #### Example usage:
 
