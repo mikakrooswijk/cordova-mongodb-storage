@@ -142,7 +142,7 @@ public class MongoDBStorage extends CordovaPlugin {
                 public void run() {
                     try {
                         ArrayList<Document> documents = database.find(args.getString(0), args.getString(1),
-                                args.getJSONObject(2), args.getJSONObject(3), args.getInt(4), args.getInt(5));
+                                args.getJSONObject(2), args.getJSONObject(3), args.getInt(4), args.getInt(5), args.getJSONArray(6));
                         
                         JSONArray jsonArray = new JSONArray();
                         for (Document document : documents) {
