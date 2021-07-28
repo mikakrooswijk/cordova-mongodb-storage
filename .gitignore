@@ -66,6 +66,7 @@ typings/
 
 #libraries
 src/android/libs
+.history
 
 # build output
 
