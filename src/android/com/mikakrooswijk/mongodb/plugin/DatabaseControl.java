@@ -90,7 +90,7 @@ public class DatabaseControl {
         return results;
     }
 
-    public ArrayList<Document> find(String database, String collection, JSONObject filter, JSONObject sort, Integer skip, Integer limit, ArrayList<String> includeFields) {
+    public ArrayList<Document> find(String database, String collection, JSONObject filter, JSONObject sort, Integer skip, Integer limit, String includeFields) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         Document query = Document.parse(filter.toString());
         Document sortQuery = Document.parse(sort.toString());
@@ -104,7 +104,7 @@ public class DatabaseControl {
             cursor.limit(limit);
         }
         if (includeFields != null && !includeFields.isEmpty()) {
-            cursor.projection(fields(include(includeFields)));
+            cursor.projection(fields(include(includeFields.split(","))));
         }
         cursor.sort(sortQuery);
 

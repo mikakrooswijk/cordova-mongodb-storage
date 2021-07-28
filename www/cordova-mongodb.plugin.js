@@ -89,7 +89,7 @@
         var order = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
         var skip = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : -1;
         var limit = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : -1;
-        var includeFields = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : [];
+        var includeFields = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : '';
         return Java.call('MongoDBStorage', 'find', [database, collection, filter, order, skip, limit, includeFields]);
       }
     }, {
