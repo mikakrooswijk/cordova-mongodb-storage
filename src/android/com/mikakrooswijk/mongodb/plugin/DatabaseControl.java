@@ -25,7 +25,14 @@ import com.mongodb.client.MongoCollection;
 // Necessary component for working with MongoDB Mobile
 import com.mongodb.stitch.android.services.mongodb.local.LocalMongoDbService;
 
+import static com.mongodb.client.model.Projections.*;
+
 import java.util.ArrayList;
+
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Indexes;
+import com.mongodb.client.model.IndexOptions;
+import com.mongodb.client.model.Filters;
 
 public class DatabaseControl {
 
@@ -38,8 +45,22 @@ public class DatabaseControl {
 
     public Document insertOne(String database, String collection, JSONObject document) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
-        localCollection.insertOne(Document.parse(document.toString()));
-        return Document.parse(document.toString());
+        Document insertDoc = Document.parse(document.toString());
+        localCollection.insertOne(insertDoc);
+        return insertDoc;
+    }
+
+    public ArrayList<Document> insertMany(String database, String collection, JSONArray documents) throws JSONException {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        
+        ArrayList<Document> documentsParsed = new ArrayList<Document>();
+        for (int i = 0; i < documents.length(); i++) {
+            JSONObject document = documents.getJSONObject(i);
+            documentsParsed.add(Document.parse(document.toString()));
+        }
+
+        localCollection.insertMany(documentsParsed);
+        return documentsParsed;
     }
 
     public Document findOne(String database, String collection, JSONObject filter) {
@@ -64,7 +85,7 @@ public class DatabaseControl {
         Document updateDoc = Document.parse(updateJSON.toString());
         localCollection.replaceOne(query, updateDoc, new UpdateOptions().upsert(true));
 
-        return Document.parse(updateJSON.toString());
+        return updateDoc;
     }
 
     public ArrayList<Document> findAll(String database, String collection) {
@@ -74,11 +95,53 @@ public class DatabaseControl {
         return results;
     }
 
+    public ArrayList<Document> find(String database, String collection, JSONObject filter, JSONObject sort, Integer skip, Integer limit, String includeFields) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        Document query = Document.parse(filter.toString());
+        Document sortQuery = Document.parse(sort.toString());
+
+        Document document;
+        FindIterable<Document> cursor = localCollection.find(query);
+        if (skip > -1) {
+            cursor.skip(skip);
+        }
+        if (limit > -1) {
+            cursor.limit(limit);
+        }
+        if (includeFields != null && !includeFields.isEmpty()) {
+            cursor.projection(fields(include(includeFields.split(","))));
+        }
+        cursor.sort(sortQuery);
+
+        ArrayList<Document> results = (ArrayList<Document>) cursor.into(new ArrayList<Document>());
+        return results;
+    }
+
+    public Long count(String database, String collection, JSONObject filter) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        Document query = Document.parse(filter.toString());
+
+        return localCollection.count(query);
+    }
+
     public DeleteResult deleteOne(String database, String collection, JSONObject filter) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         Document query = Document.parse(filter.toString());
         DeleteResult deleteResult = localCollection.deleteOne(query);
         return deleteResult;
+    }
+
+    public DeleteResult deleteMany(String database, String collection, JSONObject filter) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        Document query = Document.parse(filter.toString());
+        DeleteResult deleteResult = localCollection.deleteMany(query);
+        return deleteResult;
+    }
+
+    public Boolean deleteAll(String database, String collection) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        localCollection.drop();
+        return true;
     }
 
     public Document findById(String database, String collection, String id) {
@@ -94,7 +157,7 @@ public class DatabaseControl {
         Document updateDoc = Document.parse(updateJSON.toString());
         localCollection.updateOne(query, updateDoc);
 
-        return Document.parse(updateJSON.toString());
+        return updateDoc;
     }
 
     public Document updateMany(String database, String collection, JSONObject filter, JSONObject updateJSON) {
@@ -104,5 +167,12 @@ public class DatabaseControl {
         localCollection.updateMany(query, updateDoc);
 
         return Document.parse(updateJSON.toString());
+    }
+
+    public Boolean createIndex(String database, String collection, String indexProperty) {
+        MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
+        collection.createIndex(Indexes.ascending(indexProperty));
+        collection.createIndex(Indexes.descending(indexProperty));
+        return true;
     }
 }

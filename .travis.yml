@@ -18,8 +18,7 @@ after_success:
 
 deploy: 
   provider: npm 
-  email: mikakrooswijk@gmail.com 
+  email: rromero@digitaltpm.com 
   api_key: NPM_API_KEY
   on: 
-    tags: true
     branch: master

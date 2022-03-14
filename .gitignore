@@ -66,9 +66,9 @@ typings/
 
 #libraries
 src/android/libs
+.history
 
 # build output
-/www
 
 # DS Store
 .DS_Store

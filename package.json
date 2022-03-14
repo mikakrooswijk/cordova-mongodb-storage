@@ -1,9 +1,9 @@
 {
-  "name": "cordova-mongodb-storage",
-  "version": "0.1.10",
+  "name": "@digitaltpm/cordova-mongodb-storage-tpm",
+  "version": "0.0.1",
   "description": "This plugin provides a mongodb local storage option to Cordova based applications.",
   "cordova": {
-    "id": "cordova-mongodb-storage",
+    "id": "cordova-mongodb-storage-tpm",
     "platforms": [
       "android",
       "ios"
@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mikakrooswijk/cordova-mongodb-storage.git"
+    "url": "git+https://github.com/DigitalTPM/cordova-mongodb-storage.git"
   },
   "keywords": [
     "mongodb",
@@ -23,7 +23,8 @@
     "phonegap",
     "ecosystem:cordova",
     "cordova-android",
-    "cordova-ios"
+    "cordova-ios",
+    "digitaltpm"
   ],
   "scripts": {
     "test": "jest",
@@ -43,11 +44,11 @@
   ],
   "author": "Mika Krooswijk",
   "bugs": {
-    "url": "https://github.com/mikakrooswijk/cordova-mongodb-storage/issues"
+    "url": "https://github.com/DigitalTPM/cordova-mongodb-storage/issues"
   },
-  "homepage": "https://github.com/mikakrooswijk/cordova-mongodb-storage",
+  "homepage": "https://github.com/DigitalTPM/cordova-mongodb-storage",
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "rxjs": "^6.5.2"
   },
   "files": [
@@ -55,7 +56,8 @@
     "/src",
     "README.md",
     "package.json",
-    "plugin.xml"
+    "plugin.xml",
+    "build-extras.gradle"
   ],
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -85,5 +87,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "main": "jest.config.js"
 }

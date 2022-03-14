@@ -2,17 +2,19 @@
 ![npm](https://img.shields.io/npm/dt/cordova-mongodb-storage.svg)
 ![Travis (.org) branch](https://img.shields.io/travis/mikakrooswijk/cordova-mongodb-storage/master.svg)
 
-# cordova-mongodb-storage
+# cordova-mongodb-storage-tpm
+
+This is an update of https://github.com/mikakrooswijk/cordova-mongodb-storage
 
 This is a Cordova plugin that exposes the functionality of MongoDB Mobile to a Cordova Android or iOS app for local storage.
 
-##### [NPM](https://www.npmjs.com/package/cordova-mongodb-storage)
+##### [NPM](https://www.npmjs.com/package/cordova-mongodb-storage-tpm)
 
 ---
 
 ### Install
 
-To install this plugin run `cordova plugin add cordova-mongodb-storage` in your projects root folder.
+To install this plugin run `cordova plugin add cordova-mongodb-storage-tpm` in your projects root folder.
 
 #### Android
 
@@ -49,7 +51,7 @@ window.plugins.mongodb.initiate("appId")
 ```
 ---
 
-#### insertOne(`database: string`, `collection: string`, `document: JSONObject`) -> `Promise<JSONArray | boolean>`
+#### insertOne(`database: string`, `collection: string`, `document: JSONObject`) -> `Promise<JSONObject | boolean>`
 
 [API reference for insertOne](https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/) <br>
 
@@ -73,7 +75,31 @@ window.plugins.mongodb.insertOne('exampleDatabase', 'exampleCollection', {"examp
 
 ---
 
-#### findOne(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<JSONArray | boolean>`
+#### insertMany(`database: string`, `collection: string`, `documents: JSONArray`) -> `Promise<JSONArray>`
+
+[API reference for insertMany](https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`documents` a JSON array that are to be inserted into the database. <br>
+
+`returns` A promsie that resolves to a JSONArray containing the inserted documents.
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.insertMany('exampleDatabase', 'exampleCollection', [{"exampleKey": "exampleValue"}, {"exampleKey2": "exampleValue2"}])
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+
+---
+
+#### findOne(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<JSONObject | boolean>`
 
 [API reference for findOne](https://docs.mongodb.com/manual/reference/method/db.collection.findOne/) <br>
 
@@ -81,7 +107,7 @@ window.plugins.mongodb.insertOne('exampleDatabase', 'exampleCollection', {"examp
 `collection` the collection that is to be queried <br>
 `filter` a JSON object that provides the filter for the query. <br>
 
-`returns` A promsie that resolves to a JSONArray containing the first document that was found matching the filter, or false if there was no document found matching the filter.
+`returns` A promsie that resolves to a JSONObject containing the first document that was found matching the filter, or false if there was no document found matching the filter.
 
 #### Example usage:
 
@@ -96,7 +122,7 @@ window.plugins.mongodb.findOne('exampleDatabase', 'exampleCollection', {"example
 ```
 ---
 
-#### replaceOne(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `Promise<boolean>`
+#### replaceOne(`database: string`, `collection: string`, `filter: JSONObject`, `update: JSONObject`) -> `Promise<JSONObject>`
 
 [API reference for replaceOne](https://docs.mongodb.com/manual/reference/method/db.collection.replaceOne/) <br>
 
@@ -104,7 +130,7 @@ window.plugins.mongodb.findOne('exampleDatabase', 'exampleCollection', {"example
 `collection` the collection that is to be queried <br>
 `filter` a JSON object that provides the filter for the replace. <br>
 `update` the object that is to be updates or inserted. <br>
-`returns` A promsie that resolves to  totrue when the replace was successful, and to false when it failed.
+`returns` A promsie that resolves with the object replaced.
 
 ##### ! upsert is set to true for this function.
 
@@ -191,7 +217,56 @@ window.plugins.mongodb.findAll('exampleDatabase', 'exampleCollection')
 ```
 ---
 
-#### deleteOne(`database: string`, `filter: string`, `filter`) -> `Promise<JSONArray | boolean>`
+#### find(`database: string`, `collection: string`, `filter: JSONObject`, `order: JSONObject`, `skip: int`, `limit: int`) -> `Promise<JSONArray>`
+
+[API reference for find](https://docs.mongodb.com/manual/reference/method/db.collection.find/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`filter` a JSON object that provides the filter for the query. <br>
+`order` a JSON object that provides the order for the query. (1 -> Ascending, -1 -> Descending) (OPTIONAL)<br>
+`skip` a int that provides the number of skip. (OPTIONAL)<br>
+`limit` a int that provides the number of limit. (OPTIONAL)<br>
+
+`returns` A promsie that resolves to a JSONArray containing the documents that was found matching the filter.
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.find('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"}, {"exampleKey": 1}, 5, 10)
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
+
+#### count(`database: string`, `collection: string`, `filter: JSONObject`) -> `Promise<long>`
+
+[API reference for count](https://docs.mongodb.com/manual/reference/method/db.collection.count/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`filter` a JSON object that provides the filter for the query. <br>
+
+`returns` A promsie that resolves to a long with the number of records.
+
+#### Example usage:
+
+```js
+window.plugins.mongodb.count('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
+
+#### deleteOne(`database: string`, `filter: string`, `filter: JSONObject`) -> `Promise<boolean>`
 
 [API reference for deleteOne](https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/) <br>
 
@@ -199,10 +274,49 @@ window.plugins.mongodb.findAll('exampleDatabase', 'exampleCollection')
 `collection` the collection that is to be queried <br>
 `filter` the filter for the document to be deleted <br>
 
-`returns` A promsie that resolves to a JSONArray containing the document deleted, false if there was no document found matching the filter.
+`returns` A promise that resolves to a boolean, true if the document was deleted, false if there was no document found matching the filter.
 
 ```js
 window.plugins.mongodb.deleteOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
+
+#### deleteMany(`database: string`, `filter: string`, `filter: JSONObject`) -> `Promise<boolean>`
+
+[API reference for deleteMany](https://docs.mongodb.com/manual/reference/method/db.collection.deleteMany/) <br>
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be queried <br>
+`filter` the filter for the documents to be deleted <br>
+
+`returns` A promise that resolves to a boolean, true if the documents was deleted, false if there was no documents found matching the filter.
+
+```js
+window.plugins.mongodb.deleteOne('exampleDatabase', 'exampleCollection', {"exampleKey": "exampleValue"})
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.error(error);
+});
+```
+---
+
+#### deleteAll(`database: string`, `collection: string`) -> `Promise<boolean>`
+
+`database` the database that is to be queried. <br>
+`collection` the collection that is to be removed <br>
+
+`returns` A promsie that resolves to  totrue when the update was successful, and to false when it failed.
+
+```js
+window.plugins.mongodb.deleteAll('exampleDatabase', 'exampleCollection')
 .then((result) => {
     console.log(result);
 })

@@ -63,8 +63,23 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.insertOne(args.getString(0), args.getString(1),
                                 args.getJSONObject(2));
+                        callbackContext.success(new JSONObject(document.toJson()));
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        } else if (action.equals("insertMany")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ArrayList<Document> documents = database.insertMany(args.getString(0), args.getString(1),
+                                args.getJSONArray(2));
                         JSONArray jsonArray = new JSONArray();
-                        jsonArray.put(new JSONObject(document.toJson()));
+                        for (Document document : documents) {
+                            jsonArray.put(new JSONObject(document.toJson()));
+                        }
                         callbackContext.success(jsonArray);
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
@@ -84,9 +99,7 @@ public class MongoDBStorage extends CordovaPlugin {
                             PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
                             callbackContext.sendPluginResult(pluginResult);
                         } else {
-                            JSONArray array = new JSONArray();
-                            array.put(new JSONObject(document.toJson()));
-                            callbackContext.success(array);
+                            callbackContext.success(new JSONObject(document.toJson()));
                         }
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
@@ -100,8 +113,7 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.replaceOne(args.getString(0), args.getString(1),
                         args.getJSONObject(2), args.getJSONObject(3));
-                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                        callbackContext.sendPluginResult(pluginResult);
+                        callbackContext.success(new JSONObject(document.toJson()));
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
@@ -124,6 +136,39 @@ public class MongoDBStorage extends CordovaPlugin {
                     }
                 }
             });
+        } else if (action.equals("find")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ArrayList<Document> documents = database.find(args.getString(0), args.getString(1),
+                                args.getJSONObject(2), args.getJSONObject(3), args.getInt(4), args.getInt(5), args.getString(6));
+                        
+                        JSONArray jsonArray = new JSONArray();
+                        for (Document document : documents) {
+                            jsonArray.put(new JSONObject(document.toJson()));
+                        }
+                        callbackContext.success(jsonArray);
+
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        } else if (action.equals("count")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Long count = database.count(args.getString(0), args.getString(1),
+                                args.getJSONObject(2));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, count);
+                        callbackContext.sendPluginResult(pluginResult);
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
         } else if (action.equals("deleteOne")) {
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
@@ -133,12 +178,47 @@ public class MongoDBStorage extends CordovaPlugin {
                                 args.getJSONObject(2));
 
                         if(deleteResult.getDeletedCount() > 0){
-                            callbackContext.success(args.getJSONObject(2));
+                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                            callbackContext.sendPluginResult(pluginResult);
                         } else{
                             PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
                             callbackContext.sendPluginResult(pluginResult);
                         }
                         
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        } else if (action.equals("deleteMany")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        DeleteResult deleteResult = database.deleteMany(args.getString(0), args.getString(1),
+                                args.getJSONObject(2));
+
+                        if(deleteResult.getDeletedCount() > 0){
+                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                            callbackContext.sendPluginResult(pluginResult);
+                        } else{
+                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
+                            callbackContext.sendPluginResult(pluginResult);
+                        }
+                        
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        } else if (action.equals("deleteAll")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Boolean res = database.deleteAll(args.getString(0), args.getString(1));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
@@ -151,8 +231,7 @@ public class MongoDBStorage extends CordovaPlugin {
                     try {
                         Document document = database.updateOne(args.getString(0), args.getString(1),
                         args.getJSONObject(2), args.getJSONObject(3));
-                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                        callbackContext.sendPluginResult(pluginResult);
+                        callbackContext.success(new JSONObject(document.toJson()));
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
@@ -172,7 +251,21 @@ public class MongoDBStorage extends CordovaPlugin {
                     }
                 }
             });
-        } else {
+        }  else if (action.equals("createIndex")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Boolean res = database.createIndex(args.getString(0), args.getString(1), args.getString(2));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
+                    } catch (Exception e) {
+                        callbackContext.error(e.toString());
+                    }
+                }
+            });
+        }
+         else {
             context.error("Invalid Action");
             result = false;
         }
