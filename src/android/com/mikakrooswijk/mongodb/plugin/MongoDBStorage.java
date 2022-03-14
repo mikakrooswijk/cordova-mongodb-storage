@@ -256,7 +256,7 @@ public class MongoDBStorage extends CordovaPlugin {
                 @Override
                 public void run() {
                     try {
-                        Boolean res = database.createIndex(args.getString(0), args.getString(1), args.getString(2));
+                        ArrayList<Document> res = database.createIndex(args.getString(0), args.getString(1), args.getString(2));
                         PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
                         callbackContext.sendPluginResult(pluginResult);
                     } catch (Exception e) {

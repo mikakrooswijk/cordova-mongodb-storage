@@ -167,10 +167,11 @@ public class DatabaseControl {
         return Document.parse(updateJSON.toString());
     }
 
-    public Boolean createIndex(String database, String collection, String indexProperty) {
+    public ArrayList<Document> createIndex(String database, String collection, String indexProperty) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
         localCollection.createIndex(Indexes.ascending(indexProperty));
         localCollection.createIndex(Indexes.descending(indexProperty));
-        return true;
+        ArrayList<Document> results = localCollection.listIndexes().into(new ArrayList<Document>());
+        return results;
     }
 }
