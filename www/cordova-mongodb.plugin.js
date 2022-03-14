@@ -125,10 +125,9 @@
     }, {
       key: "createIndex",
       value: function createIndex(database, collection, indexProperty) {
-        return Java.call('MongoDBStorage', 'createIndex', [database, collection, indexProperty]);
+        return Java.call("MongoDBStorage", "createIndex", [database, collection, indexProperty]);
       }
-    },
-  ]);
+    }]);
 
     return CordovaMongodb;
   }();

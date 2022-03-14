@@ -12,5 +12,5 @@ export declare class CordovaMongodb {
     deleteAll(database: string, collection: string): Promise<any>;
     updateOne(database: string, collection: string, filter: object, update: object): Promise<any>;
     updateMany(database: string, collection: string, filter: object, update: object): Promise<any>;
-    createIndex(database: string, collection: string, indexproperty: string): Promise<any>;
+    createIndex(database: string, collection: string, indexProperty: string): Promise<any>;
 }
