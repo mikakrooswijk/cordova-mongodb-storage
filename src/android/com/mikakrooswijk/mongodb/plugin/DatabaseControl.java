@@ -29,10 +29,8 @@ import static com.mongodb.client.model.Projections.*;
 
 import java.util.ArrayList;
 
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.IndexOptions;
-import com.mongodb.client.model.Filters;
 
 public class DatabaseControl {
 
@@ -171,8 +169,8 @@ public class DatabaseControl {
 
     public Boolean createIndex(String database, String collection, String indexProperty) {
         MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
-        collection.createIndex(Indexes.ascending(indexProperty));
-        collection.createIndex(Indexes.descending(indexProperty));
+        localCollection.createIndex(Indexes.ascending(indexProperty));
+        localCollection.createIndex(Indexes.descending(indexProperty));
         return true;
     }
 }
