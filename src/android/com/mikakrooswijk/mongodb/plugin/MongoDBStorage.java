@@ -256,9 +256,12 @@ public class MongoDBStorage extends CordovaPlugin {
                 @Override
                 public void run() {
                     try {
-                        ArrayList<Document> res = database.createIndex(args.getString(0), args.getString(1), args.getString(2));
-                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                        callbackContext.sendPluginResult(pluginResult);
+                        ArrayList<Document> documents = database.createIndex(args.getString(0), args.getString(1), args.getString(2));
+                        JSONArray jsonArray = new JSONArray();
+                        for (Document document : documents) {
+                            jsonArray.put(new JSONObject(document.toJson()));
+                        }
+                        callbackContext.success(jsonArray);
                     } catch (Exception e) {
                         callbackContext.error(e.toString());
                     }
