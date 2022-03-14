@@ -52,4 +52,8 @@ export class CordovaMongodb {
     public updateMany(database: string, collection: string, filter: object, update: object){
         return Java.call("MongoDBStorage", "updateMany", [database, collection, filter, update]);
     }
+
+    public createIndex(database: string, collection: string, indexProperty: string){
+        return Java.call("MongoDBStorage", "createIndex", [database, collection, indexProperty]);
+    }
 }

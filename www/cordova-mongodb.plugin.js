@@ -122,7 +122,13 @@
       value: function updateMany(database, collection, filter, update) {
         return Java.call("MongoDBStorage", "updateMany", [database, collection, filter, update]);
       }
-    }]);
+    }, {
+      key: "createIndex",
+      value: function createIndex(database, collection, indexProperty) {
+        return Java.call('MongoDBStorage', 'createIndex', [database, collection, indexProperty]);
+      }
+    },
+  ]);
 
     return CordovaMongodb;
   }();
