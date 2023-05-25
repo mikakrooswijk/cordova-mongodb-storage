@@ -57,214 +57,177 @@ public class MongoDBStorage extends CordovaPlugin {
 
             }
         } else if (action.equals("insertOne")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Document document = database.insertOne(args.getString(0), args.getString(1),
-                                args.getJSONObject(2));
-                        callbackContext.success(new JSONObject(document.toJson()));
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
-                    }
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    Document document = database.insertOne(args.getString(0), args.getString(1),
+                            args.getJSONObject(2));
+                    callbackContext.success(new JSONObject(document.toJson()));
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("insertMany")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        ArrayList<Document> documents = database.insertMany(args.getString(0), args.getString(1),
-                                args.getJSONArray(2));
-                        JSONArray jsonArray = new JSONArray();
-                        for (Document document : documents) {
-                            jsonArray.put(new JSONObject(document.toJson()));
-                        }
-                        callbackContext.success(jsonArray);
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
-                    }
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    ArrayList<Document> documents = database.insertMany(args.getString(0), args.getString(1),
+                            args.getJSONArray(2));
+//                    JSONArray jsonArray = new JSONArray();
+//                    for (Document document : documents) {
+//                        jsonArray.put(new JSONObject(document.toJson()));
+//                    }
+//                    callbackContext.success(jsonArray);
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                    callbackContext.sendPluginResult(pluginResult);
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("findOne")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Document document = database.findOne(args.getString(0), args.getString(1),
-                                args.getJSONObject(2));
-                        // TODO: return array containing the object. Swift requires the return object to be in an array
-                        // for consistancy the Java implementation should do the same.
-                        if(document.isEmpty()){
-                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
-                            callbackContext.sendPluginResult(pluginResult);
-                        } else {
-                            callbackContext.success(new JSONObject(document.toJson()));
-                        }
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    Document document = database.findOne(args.getString(0), args.getString(1),
+                            args.getJSONObject(2));
+                    // TODO: return array containing the object. Swift requires the return object to be in an array
+                    // for consistancy the Java implementation should do the same.
+                    if(document.isEmpty()){
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
+                        callbackContext.sendPluginResult(pluginResult);
+                    } else {
+                        callbackContext.success(new JSONObject(document.toJson()));
                     }
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("replaceOne")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Document document = database.replaceOne(args.getString(0), args.getString(1),
-                        args.getJSONObject(2), args.getJSONObject(3));
-                        callbackContext.success(new JSONObject(document.toJson()));
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
-                    }
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    Document document = database.replaceOne(args.getString(0), args.getString(1),
+                    args.getJSONObject(2), args.getJSONObject(3));
+                    callbackContext.success(new JSONObject(document.toJson()));
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("findAll")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        ArrayList<Document> document = database.findAll(args.getString(0), args.getString(1));
-                        JSONArray returnJSON = new JSONArray();
-                        for (int i = 0; i < document.size(); i++) {
-                            JSONObject json = new JSONObject(document.get(i).toJson());
-                            returnJSON.put(json);
-                        }
-                        callbackContext.success(returnJSON);
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    ArrayList<Document> document = database.findAll(args.getString(0), args.getString(1));
+                    JSONArray returnJSON = new JSONArray();
+                    for (int i = 0; i < document.size(); i++) {
+                        JSONObject json = new JSONObject(document.get(i).toJson());
+                        returnJSON.put(json);
                     }
+                    callbackContext.success(returnJSON);
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("find")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        ArrayList<Document> documents = database.find(args.getString(0), args.getString(1),
-                                args.getJSONObject(2), args.getJSONObject(3), args.getInt(4), args.getInt(5), args.getString(6));
-                        
-                        JSONArray jsonArray = new JSONArray();
-                        for (Document document : documents) {
-                            jsonArray.put(new JSONObject(document.toJson()));
-                        }
-                        callbackContext.success(jsonArray);
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    ArrayList<Document> documents = database.find(args.getString(0), args.getString(1),
+                            args.getJSONObject(2), args.getJSONObject(3), args.getInt(4), args.getInt(5), args.getString(6));
 
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
+                    JSONArray jsonArray = new JSONArray();
+                    for (Document document : documents) {
+                        jsonArray.put(new JSONObject(document.toJson()));
                     }
+                    callbackContext.success(jsonArray);
+
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("count")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Long count = database.count(args.getString(0), args.getString(1),
-                                args.getJSONObject(2));
-                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, count);
-                        callbackContext.sendPluginResult(pluginResult);
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
-                    }
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    Long count = database.count(args.getString(0), args.getString(1),
+                            args.getJSONObject(2));
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, count);
+                    callbackContext.sendPluginResult(pluginResult);
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("deleteOne")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        DeleteResult deleteResult = database.deleteOne(args.getString(0), args.getString(1),
-                                args.getJSONObject(2));
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    DeleteResult deleteResult = database.deleteOne(args.getString(0), args.getString(1),
+                            args.getJSONObject(2));
 
-                        if(deleteResult.getDeletedCount() > 0){
-                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                            callbackContext.sendPluginResult(pluginResult);
-                        } else{
-                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
-                            callbackContext.sendPluginResult(pluginResult);
-                        }
-                        
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
+                    if(deleteResult.getDeletedCount() > 0){
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
+                    } else{
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
+                        callbackContext.sendPluginResult(pluginResult);
                     }
+
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("deleteMany")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        DeleteResult deleteResult = database.deleteMany(args.getString(0), args.getString(1),
-                                args.getJSONObject(2));
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    DeleteResult deleteResult = database.deleteMany(args.getString(0), args.getString(1),
+                            args.getJSONObject(2));
 
-                        if(deleteResult.getDeletedCount() > 0){
-                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                            callbackContext.sendPluginResult(pluginResult);
-                        } else{
-                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
-                            callbackContext.sendPluginResult(pluginResult);
-                        }
-                        
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
+                    if(deleteResult.getDeletedCount() > 0){
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                        callbackContext.sendPluginResult(pluginResult);
+                    } else{
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, false);
+                        callbackContext.sendPluginResult(pluginResult);
                     }
+
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("deleteAll")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Boolean res = database.deleteAll(args.getString(0), args.getString(1));
-                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                        callbackContext.sendPluginResult(pluginResult);
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
-                    }
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    Boolean res = database.deleteAll(args.getString(0), args.getString(1));
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                    callbackContext.sendPluginResult(pluginResult);
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("updateOne")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Document document = database.updateOne(args.getString(0), args.getString(1),
-                        args.getJSONObject(2), args.getJSONObject(3));
-                        callbackContext.success(new JSONObject(document.toJson()));
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
-                    }
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    Document document = database.updateOne(args.getString(0), args.getString(1),
+                    args.getJSONObject(2), args.getJSONObject(3));
+                    callbackContext.success(new JSONObject(document.toJson()));
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         } else if (action.equals("updateMany")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Document document = database.updateMany(args.getString(0), args.getString(1),
-                        args.getJSONObject(2), args.getJSONObject(3));
-                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                        callbackContext.sendPluginResult(pluginResult);
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
-                    }
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    Document document = database.updateMany(args.getString(0), args.getString(1),
+                    args.getJSONObject(2), args.getJSONObject(3));
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
+                    callbackContext.sendPluginResult(pluginResult);
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         }  else if (action.equals("createIndex")) {
-            cordova.getThreadPool().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        ArrayList<Document> documents = database.createIndex(args.getString(0), args.getString(1), args.getString(2));
-                        JSONArray jsonArray = new JSONArray();
-                        for (Document document : documents) {
-                            jsonArray.put(new JSONObject(document.toJson()));
-                        }
-                        callbackContext.success(jsonArray);
-                    } catch (Exception e) {
-                        callbackContext.error(e.toString());
+            cordova.getActivity().runOnUiThread(() -> {
+                try {
+                    ArrayList<Document> documents = database.createIndex(args.getString(0), args.getString(1), args.getString(2));
+                    JSONArray jsonArray = new JSONArray();
+                    for (Document document : documents) {
+                        jsonArray.put(new JSONObject(document.toJson()));
                     }
+                    callbackContext.success(jsonArray);
+                } catch (Exception e) {
+                    callbackContext.error(e.toString());
                 }
             });
         }
